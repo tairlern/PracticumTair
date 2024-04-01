@@ -1,0 +1,17 @@
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\bin\Debug\net6.0\Server.Data.deps.json
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\bin\Debug\net6.0\Server.Data.runtimeconfig.json
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\bin\Debug\net6.0\Server.Data.dll
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\bin\Debug\net6.0\Server.Data.pdb
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\bin\Debug\net6.0\Server.Core.dll
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\bin\Debug\net6.0\Server.Core.pdb
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\obj\Debug\net6.0\Server.Data.csproj.AssemblyReference.cache
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\obj\Debug\net6.0\Server.Data.GeneratedMSBuildEditorConfig.editorconfig
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\obj\Debug\net6.0\Server.Data.AssemblyInfoInputs.cache
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\obj\Debug\net6.0\Server.Data.AssemblyInfo.cs
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\obj\Debug\net6.0\Server.Data.csproj.CoreCompileInputs.cache
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\obj\Debug\net6.0\Server.Data.csproj.CopyComplete
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\obj\Debug\net6.0\Server.Data.dll
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\obj\Debug\net6.0\refint\Server.Data.dll
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\obj\Debug\net6.0\Server.Data.pdb
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\obj\Debug\net6.0\Server.Data.genruntimeconfig.cache
+Y:\Groups\Group_3\ניזרי  תאיר יהודית\פרקטיקום\Server\Server.Data\obj\Debug\net6.0\ref\Server.Data.dll

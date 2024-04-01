@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "RXw7kxaL2xFgfHaOzfVYwi66MsJNOHk1LVuz5w86/8bQ1F2bgfO+1ZdZTNE6PbrGEAEL3Nd+rEln8D9w5+pD+A==",
+  "success": true,
+  "projectFilePath": "Y:\\Groups\\Group_3\\ניזרי  תאיר יהודית\\פרקטיקום\\Server\\Server.Core\\Server.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\hitmachut\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\hitmachut\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}
