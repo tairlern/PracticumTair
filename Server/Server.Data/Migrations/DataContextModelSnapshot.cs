@@ -52,8 +52,9 @@ namespace Server.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Kind")
-                        .HasColumnType("bit");
+                    b.Property<string>("Kind")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -93,20 +94,22 @@ namespace Server.Data.Migrations
 
             modelBuilder.Entity("Server.Core.Models.RoleEmployee", b =>
                 {
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsManagement")
                         .HasColumnType("bit");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
+
+                    b.HasKey("RoleId", "EmployeeId");
 
                     b.ToTable("RoleEmployees");
                 });

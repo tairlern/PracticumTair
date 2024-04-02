@@ -14,7 +14,6 @@ namespace Server.Core.DTOs
         public string Tz { get; set; }
         public DateTime StartWork { get; set; }
         public DateTime DateBirth { get; set; }
-        public bool Kind { get; set; }
-        public bool Status { get; set; }
+        public string Kind { get; set; }
     }
 }

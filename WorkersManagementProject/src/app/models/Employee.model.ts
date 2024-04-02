@@ -5,5 +5,5 @@ export class Employee {
     startWork!: Date
     declareateBirth !: Date
     kind !: boolean
-    status !: boolean
+    
   }

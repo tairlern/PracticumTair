@@ -29,5 +29,10 @@ export class AddRoleComponent implements OnInit {
   ngOnInit(): void {
    
   }
+  Add(){
 
+  }
+  Cencel(){
+    
+  }
 }
