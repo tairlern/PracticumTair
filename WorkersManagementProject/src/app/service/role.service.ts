@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Role } from '../models/Role.model';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +9,15 @@ import { Observable } from 'rxjs';
 export class RoleService {
 
   constructor(private http: HttpClient) { }
-  getEmployTableServer(): Observable<Role[]> {
+  getRoleTableServer(): Observable<Role[]> {
     return this.http.get<Role[]>('https://localhost:7223/api/Role')
+  }
+  getRoleByNameServer(selectedRole: string): Observable<Role> {
+    //  this.http.get<Role[]>('https://localhost:7223/api/Role')
+   return this.http.get<Role[]>('https://localhost:7223/api/Role')
+      .pipe(
+        map((roles: Role[]) => roles.find(rol => rol.name === selectedRole)!)
+      );
   }
 
 }

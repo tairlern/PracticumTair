@@ -12,8 +12,8 @@ using Server.Data;
 namespace Server.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240402085650_db")]
-    partial class db
+    [Migration("20240402153222_onee0")]
+    partial class onee0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

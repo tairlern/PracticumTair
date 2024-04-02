@@ -47,6 +47,7 @@ namespace Server.APi.Controllers
         public async Task<ActionResult> Post([FromBody] EmployeePostModel value)
         {
             var employeeDto = _mapper.Map<Employee>(value);
+            employeeDto.Status = true;
           
             var addEmployeeTask =await _employeeService.AddAsync(employeeDto);
            

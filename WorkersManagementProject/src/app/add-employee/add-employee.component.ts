@@ -11,6 +11,7 @@ import {MatDatepickerInputEvent, MatDatepickerModule} from '@angular/material/da
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { EmployeeService } from '../service/employee.service';
 import {  Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-add-employee',
   standalone: true,
@@ -22,9 +23,8 @@ import {  Router } from '@angular/router';
 export class AddEmployeeComponent implements OnInit{ 
   date = new FormControl(new Date());
   serializedDate = new FormControl(new Date().toISOString());
-   isRoleExite=false;
   public addForm!: FormGroup;
- constructor(private _employeeService:EmployeeService, private router: Router){}
+ constructor(private _employeeService:EmployeeService, private router: Router,public dialog: MatDialog){}
  
  ngOnInit(): void {
    this.addForm = new FormGroup({
@@ -53,11 +53,19 @@ updateDate(event: MatDatepickerInputEvent<Date>)
   const formattedDateForServer = formattedDate.slice(0, 10); // Extract YYYY-MM-DD
   this.addForm.controls['dateBirth'].setValue(formattedDateForServer);
 } }
+
 addRole(){
-  this.isRoleExite=!this.isRoleExite;
+  this.dialog.open(AddRoleComponent);
 }
+
+
+
 cencel(){
+  this.router.navigate(['../']);
 }
+
+
+
 add(){
   console.log(this.addForm.value)
   const formData = this.addForm.value;
