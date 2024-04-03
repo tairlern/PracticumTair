@@ -1,5 +1,6 @@
 export class RoleEmployee {
- roleNameId !:number
-  managerialPosition!:boolean
- dateOfStartingWork !:Date
-  }
+    employeeId!: number
+    roleNameId !: number
+    managerialPosition!: boolean
+    dateOfStartingWork !: Date
+}

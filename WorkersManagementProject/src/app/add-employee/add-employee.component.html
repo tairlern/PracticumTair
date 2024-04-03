@@ -47,13 +47,13 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        
-        <button mat-button (click)="addRole()">Add Role</button>
-    </form>
+       </form> 
+        <button mat-button (click)="addRole()" [disabled]="!this.addForm.valid">Add Role</button>
+    
     </mat-card-content>
  
-    <mat-card-actions>
-        <button mat-button (click)="add()">Add</button>
+    <mat-card-actions class="buttons">
+        <button mat-button (click)="add()" [disabled]="!this.addForm.valid">Add</button>
         <button mat-button (click)="cencel()">Cancel</button>
     </mat-card-actions>
 </mat-card>

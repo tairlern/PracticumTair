@@ -30,6 +30,6 @@
 </mat-dialog-content>
 <mat-dialog-actions>
     <!-- <button mat-button mat-dialog-close>Close</button> -->
-    <button mat-button (click)="Add()">Add Role</button>
-    <button mat-button mat-dialog-close (click)="Cencel()">Cancel</button>
+    <button mat-button (click)="Add()" [disabled]="!this.FormRoleEmp.valid">Add Role</button>
+    <button mat-button mat-dialog-close >Cancel</button>
 </mat-dialog-actions>
