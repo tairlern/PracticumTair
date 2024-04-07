@@ -48,7 +48,7 @@ namespace Server.APi.Controllers
         public async Task<ActionResult> Post([FromBody] RoleEmployeePostModel value)
         {
             var roleEmployee = _mapper.Map<RoleEmployee>(value);
-
+            roleEmployee.Status = true;
             var addEmployeeTask = await _roleEmployeeService.AddAsync(roleEmployee);
 
             return Ok(addEmployeeTask);
@@ -56,11 +56,11 @@ namespace Server.APi.Controllers
         }
 
         // PUT api/<RoleEmployeeController>/5
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int ide,int idr, [FromBody] RoleEmployeePostModel value)
+        [HttpPut("{ide}/{idr}")]
+        public async Task<ActionResult> Put(int ide, int idr, [FromBody] RoleEmployeePostModel value)
         {
             var roleemployeeDto = _mapper.Map<RoleEmployee>(value);
-            var updateRoleEmployeeTask = await _roleEmployeeService.UpdateAsync(ide,idr, roleemployeeDto);
+            var updateRoleEmployeeTask = await _roleEmployeeService.UpdateAsync(ide, idr, roleemployeeDto);
             return Ok(updateRoleEmployeeTask);
         }
 

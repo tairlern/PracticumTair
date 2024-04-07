@@ -35,7 +35,7 @@ namespace Server.Data.Repositories
         {
             var existrEmployee = await GetByIdAsync(ide,idr);
             roleemployee.EmployeeId=existrEmployee.EmployeeId;
-            roleemployee.RoleId=existrEmployee.RoleId;
+           roleemployee.RoleId=existrEmployee.RoleId;
             _context.Entry(existrEmployee).CurrentValues.SetValues(roleemployee);
             await _context.SaveChangesAsync();
             return existrEmployee;

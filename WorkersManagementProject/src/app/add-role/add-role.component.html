@@ -13,14 +13,14 @@
             <div>
                 <section class="example-section">
                     <label class="example-margin"> Choose: </label>
-                    <mat-checkbox formControlName="managerialPosition"> isManagerialPosition</mat-checkbox>
+                    <mat-checkbox formControlName="isManagement"> isManagerialPosition</mat-checkbox>
                 </section>
             </div>
             <div>
                 <mat-form-field>
                     <mat-label>DateOfStartingWork</mat-label>
                     <input matInput placeholder="DateOfStartingWork" [matDatepicker]="picker1"
-                        formControlName="dateOfStartingWork" (dateChange)="updateDate($event)">
+                        formControlName="startDate" (dateChange)="updateDate($event)">
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
@@ -29,7 +29,6 @@
     </mat-card-content>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <!-- <button mat-button mat-dialog-close>Close</button> -->
     <button mat-button (click)="Add()" [disabled]="!this.FormRoleEmp.valid">Add Role</button>
     <button mat-button mat-dialog-close >Cancel</button>
 </mat-dialog-actions>

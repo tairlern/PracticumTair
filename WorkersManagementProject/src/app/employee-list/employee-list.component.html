@@ -33,17 +33,18 @@
         <th mat-header-cell *matHeaderCellDef> Start Date </th>
         <td mat-cell *matCellDef="let element"> {{element.startWork | date: 'dd/MM/yyyy'}} </td>
       </ng-container>
-      <ng-container matColumnDef="option">
-        <td mat-cell *matCellDef="let element" class="row-cell" (mouseenter)="element.showIcons = true" (mouseleave)="element.showIcons = false">
-          <mat-icon *ngIf="element.showIcons" matTooltip="Edit" (click)="editRow(element)">edit</mat-icon>
-          <mat-icon *ngIf="element.showIcons" matTooltip="Delete" (click)="deleteRow(element)">delete</mat-icon>
-        </td>
+      <ng-container matColumnDef=" ">
+        <th mat-header-cell *matHeaderCellDef>  </th>
+        <td mat-cell *matCellDef="let element">
+        <button (click)="editRow(element)">   <mat-icon matTooltip="Edit" >edit</mat-icon></button>
+         <button (click)="deleteRow(element)"> <mat-icon matTooltip="Delete">delete</mat-icon></button>
+         </td>
       </ng-container>
     
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     
-      <!-- Row shown when there is no matching data. -->
+    
       <tr class="mat-row" *matNoDataRow>
         <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
       </tr>

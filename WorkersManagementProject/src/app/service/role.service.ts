@@ -16,8 +16,18 @@ export class RoleService {
     //  this.http.get<Role[]>('https://localhost:7223/api/Role')
    return this.http.get<Role[]>('https://localhost:7223/api/Role')
       .pipe(
-        map((roles: Role[]) => roles.find(rol => rol.name === selectedRole)!)
+        map((roles: Role[]) => roles.find(rol => rol.name == selectedRole)!)
       );
   }
-
+  getListRoleName():Observable<{[key: number]: string}> {
+    return this.http.get<Role[]>('https://localhost:7223/api/Role')
+      .pipe(
+        map((roles: Role[]) => {
+          return roles.reduce((acc, role) => {
+            acc[role.id] = role.name;
+            return acc;
+          }, {} as {[key: number]: string});
+        })
+      );
+  }
 }

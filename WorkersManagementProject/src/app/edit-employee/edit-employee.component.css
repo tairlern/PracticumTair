@@ -1,0 +1,12 @@
+.buttons{
+    display: flex;
+    flex-direction: row;   
+}
+
+.roles{
+    display: flex;
+    flex-direction: row;  
+}
+.positon{
+    width: 100px;
+}

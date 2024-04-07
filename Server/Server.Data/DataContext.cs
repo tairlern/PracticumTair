@@ -16,7 +16,7 @@ namespace Server.Data
         public DbSet<RoleEmployee> RoleEmployees { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=data0_db");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=data1_db");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Xe+iLMH9Y6x9be7WMY8N+oSmyrN1JD+cJxHb5LvDAIcdJXFf8xFiFwJ6BoGJGig9qjYY/Yt+pWUz1DKBf6nKjA==",
+  "dgSpecHash": "m0KxY56uaZW1/jf35Y/rWzP60Vjsev8tYyKJ9juMD0ZSzam9KwyY0D/olme3LgSNB8dOvRz3ka5ulvInGF581g==",
   "success": true,
   "projectFilePath": "Y:\\Groups\\Group_3\\ניזרי  תאיר יהודית\\פרקטיקום\\Server\\Server.Data\\Server.Data.csproj",
   "expectedPackageFiles": [
@@ -47,7 +47,10 @@
     "C:\\Users\\hitmachut\\.nuget\\packages\\system.security.permissions\\4.7.0\\system.security.permissions.4.7.0.nupkg.sha512",
     "C:\\Users\\hitmachut\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
     "C:\\Users\\hitmachut\\.nuget\\packages\\system.text.encoding.codepages\\4.7.0\\system.text.encoding.codepages.4.7.0.nupkg.sha512",
-    "C:\\Users\\hitmachut\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
+    "C:\\Users\\hitmachut\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
+    "C:\\Users\\hitmachut\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.28\\microsoft.windowsdesktop.app.ref.6.0.28.nupkg.sha512",
+    "C:\\Users\\hitmachut\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.28\\microsoft.netcore.app.ref.6.0.28.nupkg.sha512",
+    "C:\\Users\\hitmachut\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.28\\microsoft.aspnetcore.app.ref.6.0.28.nupkg.sha512"
   ],
   "logs": []
 }

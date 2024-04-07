@@ -60,6 +60,7 @@ namespace Server.APi.Controllers
         public async Task<ActionResult> Put(int id, [FromBody] EmployeePostModel value)
         {
             var employeeDto = _mapper.Map<Employee>(value);
+            employeeDto.Status = true;
             var updateEmployeeTask = await _employeeService.UpdateAsync(id,employeeDto);
             return Ok(updateEmployeeTask);
         }

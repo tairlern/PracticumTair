@@ -33,16 +33,17 @@ import { Dialog } from '@angular/cdk/dialog';
   styleUrl: './add-role.component.css'
 })
 export class AddRoleComponent implements OnInit {
+  listRole: Role[] = [];
+  listNameRole: String[] = [];
   public FormRoleEmp!: FormGroup;
   public role!: Role;
-  listNameRole: String[] = [];
-  listRole: Role[] = [];
-  constructor(private _roleService: RoleService,private _roleEmployeeService: RoleEmployeeService,@Inject(MAT_DIALOG_DATA) public data: { employeeId: number },private dialog:Dialog) {
+
+  constructor(private _roleService: RoleService, private _roleEmployeeService: RoleEmployeeService, @Inject(MAT_DIALOG_DATA) public data: { employeeId: number }, private dialog: Dialog) {
     this.FormRoleEmp = new FormGroup({
       "employeeId": new FormControl(data.employeeId),
-      "roleNameId": new FormControl('', [Validators.required]),
-      "managerialPosition": new FormControl(false, [Validators.required]),
-      "dateOfStartingWork": new FormControl("", [Validators.required]),
+      "roleId": new FormControl('', [Validators.required]),
+      "isManagement": new FormControl(false, [Validators.required]),
+      "startDate": new FormControl("", [Validators.required]),
     })
   }
 
@@ -56,21 +57,23 @@ export class AddRoleComponent implements OnInit {
     })
 
   }
+
   updateDate(event: MatDatepickerInputEvent<Date>) {
     if (event.value) {
       const selectedDate = event.value;
       const formattedDate = selectedDate.toISOString();
-      const formattedDateForServer = formattedDate.slice(0, 10); 
-      this.FormRoleEmp.controls['dateOfStartingWork'].setValue(formattedDateForServer);
+      const formattedDateForServer = formattedDate.slice(0, 10);
+      this.FormRoleEmp.controls['startDate'].setValue(formattedDateForServer);
     }
   }
+
   chooseRole(selectedRole: string) {
     this._roleService.getRoleByNameServer(selectedRole).subscribe({
       next: (res) => {
         this.role = res;
-        console.log(this.role, "role in next")
+        console.log(this.role, "role in next this potisen return")
         if (this.role && this.role.id) {
-          this.FormRoleEmp.get('roleNameId')?.setValue(this.role.id);
+          this.FormRoleEmp.get('roleId')?.setValue(this.role.id);
         } else {
           console.log("Role or Role id is undefined");
         }
@@ -83,8 +86,9 @@ export class AddRoleComponent implements OnInit {
 
   Add() {
     console.log("post role", this.FormRoleEmp.value)
-    this._roleEmployeeService.postRoleEmployee(this.FormRoleEmp.value).subscribe;
-this.dialog.closeAll();
+
+    this._roleEmployeeService.postRoleEmployee(this.FormRoleEmp.value).subscribe();
+    this.dialog.closeAll();
 
   }
 }

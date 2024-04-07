@@ -4,7 +4,7 @@ export class Employee {
   lastName!: string
   tz!: string
   startWork!: Date
-  declareateBirth !: Date
+  dateBirth !: Date
   kind !: boolean
 
 }

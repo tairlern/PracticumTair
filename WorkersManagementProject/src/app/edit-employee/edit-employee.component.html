@@ -1,1 +1,96 @@
-<p>edit-employee works!</p>
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>Edit Employee</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="formEmployee" id="form">
+            <div>
+                <mat-form-field>
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="Last Name" formControlName="lastName">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>First Name</mat-label>
+                    <input matInput placeholder="First Name" formControlName="firstName">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Id</mat-label>
+                    <input matInput placeholder="Id" formControlName="tz">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Start Work</mat-label>
+                    <input matInput placeholder="Start Work" [matDatepicker]="picker1" formControlName="startWork"
+                        (dateChange)="updateDate($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput placeholder="Date of Birth" [matDatepicker]="picker2" formControlName="dateBirth"
+                        (dateChange)="updateDateBirth($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Kind</mat-label>
+                    <mat-select placeholder="Kind" formControlName="kind">
+                        <mat-option value="male">Male</mat-option>
+                        <mat-option value="female">Female</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-card-content>
+
+   
+        <div *ngFor="let control of listEmployeeRole; let i = index" class="roles">
+            <form [formGroup]="control" [id]="'form'+i">
+                <div class="positon">
+                    <mat-form-field>
+                        <mat-label>Name Role</mat-label>
+                        <mat-select placeholder="Name Role" formControlName="roleId" (selectionChange)="chooseRole($event.value, i)">
+                          <mat-option [value]="nrole.id" *ngFor="let nrole of DicNameRole">{{nrole.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+                <div>
+                    <section class="example-section">
+                        <label class="example-margin"> Choose: </label>
+                        <mat-checkbox formControlName="isManagement"> isManagerialPosition</mat-checkbox>
+                    </section>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <mat-label>DateOfStartingWork</mat-label>
+                        <input matInput placeholder="DateOfStartingWork" [matDatepicker]="picker"
+                            formControlName="startDate" (dateChange)="updateDate($event)">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+               <button (click)="deleteRole(i)"><mat-icon>delete</mat-icon></button> 
+
+            </form>
+            <!-- <button><mat-icon matTooltip="Delete">delete</mat-icon></button> -->
+        </div>
+    
+     
+
+
+
+    <button mat-button (click)="addRole()" [disabled]="!this.formEmployee.valid">+role</button>
+    <mat-card-actions class="buttons">
+        <button mat-button (click)="edit()" [disabled]="!this.formEmployee.valid">Edit</button>
+        <button mat-button (click)="cencel()">Cancel</button>
+    </mat-card-actions>
+</mat-card>

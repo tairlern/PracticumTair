@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "RXw7kxaL2xFgfHaOzfVYwi66MsJNOHk1LVuz5w86/8bQ1F2bgfO+1ZdZTNE6PbrGEAEL3Nd+rEln8D9w5+pD+A==",
+  "dgSpecHash": "xg+c00I0UCBTrBWecWV9RQeVDxqB7vjJOC1e5SBFPNZ+QRBZVJ9Odgs7bwVB2uKWyU12vbVaMpYXcwynmQmEKg==",
   "success": true,
   "projectFilePath": "Y:\\Groups\\Group_3\\ניזרי  תאיר יהודית\\פרקטיקום\\Server\\Server.Core\\Server.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hitmachut\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
-    "C:\\Users\\hitmachut\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
+    "C:\\Users\\hitmachut\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\hitmachut\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.28\\microsoft.windowsdesktop.app.ref.6.0.28.nupkg.sha512",
+    "C:\\Users\\hitmachut\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.28\\microsoft.netcore.app.ref.6.0.28.nupkg.sha512",
+    "C:\\Users\\hitmachut\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.28\\microsoft.aspnetcore.app.ref.6.0.28.nupkg.sha512"
   ],
   "logs": []
 }

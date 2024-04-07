@@ -3,13 +3,12 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { EmployeeService } from '../service/employee.service';
+import {  Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Employee } from '../models/Employee.model';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { AddEmployeeComponent } from '../add-employee/add-employee.component';
-
+import { EmployeeService } from '../service/employee.service';
 @Component({
   selector: 'app-employee-list',
   standalone: true,
@@ -19,7 +18,7 @@ import { AddEmployeeComponent } from '../add-employee/add-employee.component';
 })
 export class EmployeeListComponent implements OnInit {
   constructor(private _employeeService: EmployeeService, private router: Router) { }
-  displayedColumns: string[] = ['lastName', 'firstName', 'id', 'startWork'];
+  displayedColumns: string[] = ['lastName', 'firstName', 'id', 'startWork',' '];
   ELEMENT_DATA: Employee[] = [];
   dataSource = new MatTableDataSource<Employee>(this.ELEMENT_DATA);
 
@@ -44,11 +43,19 @@ export class EmployeeListComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  editRow(emp: Employee) {}
-
-  deleteRow(emp: Employee) {
-  
+  editRow(emp: Employee) {
+    
+    this.router.navigate(['edit-employee'], { queryParams: { numEmp:emp.id } })
   }
 
-  saveinExel() {}
+  deleteRow(emp: Employee) {
+  this._employeeService.deleteById(emp.id).subscribe(() => {
+    this.ELEMENT_DATA = this.ELEMENT_DATA.filter(item => item.id !== emp.id);
+    this.dataSource.data = this.ELEMENT_DATA;
+  });
+
+  }
+  saveinExel() {
+    console.log("saveinexel")
+  }
 }

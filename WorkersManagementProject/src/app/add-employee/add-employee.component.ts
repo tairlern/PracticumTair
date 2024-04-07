@@ -29,9 +29,10 @@ import { EmployeeService } from '../service/employee.service';
   styleUrl: './add-employee.component.css'
 })
 export class AddEmployeeComponent implements OnInit {
-  serializedDate = new FormControl(new Date().toISOString());
   public addForm!: FormGroup;
+  public isAddRole: boolean = false
   employeeId!: number
+
   constructor(private _employeeService: EmployeeService,
     private router: Router,
     public dialog: MatDialog) { }
@@ -47,28 +48,29 @@ export class AddEmployeeComponent implements OnInit {
     })
 
   }
+
   updateDate(event: MatDatepickerInputEvent<Date>) {
     if (event.value) {
       const selectedDate = event.value;
       const formattedDate = selectedDate.toISOString();
-      // Adjust the formatted date to match the expected server format
-      const formattedDateForServer = formattedDate.slice(0, 10); // Extract YYYY-MM-DD
+      const formattedDateForServer = formattedDate.slice(0, 10);
       this.addForm.controls['startWork'].setValue(formattedDateForServer);
     }
   }
+
   updateDateBirth(event: MatDatepickerInputEvent<Date>) {
     if (event.value) {
       const selectedDate = event.value;
       const formattedDate = selectedDate.toISOString();
-      // Adjust the formatted date to match the expected server format
-      const formattedDateForServer = formattedDate.slice(0, 10); // Extract YYYY-MM-DD
+      const formattedDateForServer = formattedDate.slice(0, 10);
       this.addForm.controls['dateBirth'].setValue(formattedDateForServer);
     }
   }
 
   addRole() {
     this._employeeService.postEmployeeServer(this.addForm.value).subscribe({
-      next: (res) => {
+      next: () => {
+        this.isAddRole = true
         this._employeeService.getEmployTableServer().subscribe({
           next: (resful) => {
             this.employeeId = Number(resful.find(emp => emp.tz === this.addForm.value.tz)?.id) ?? null;
@@ -91,15 +93,9 @@ export class AddEmployeeComponent implements OnInit {
 
 
   add() {
-    console.log(this.addForm.value)
-    this._employeeService.postEmployeeServer(this.addForm.value).subscribe({
-      next: (res) => {
-        this.router.navigate(['../']);
-        console.log(this.addForm.value, "השמירה");
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
+    if (this.isAddRole === false) {
+      this._employeeService.postEmployeeServer(this.addForm.value).subscribe();
+    } 
+    this.router.navigate(['../']);
   }
 }
