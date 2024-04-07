@@ -1,7 +1,27 @@
+
 .buttons{
     display: flex;
     flex-direction: row;   
 }
+.cancel{
+    width: 30px;
+    height: 30px;
+}
+
+.roles{
+    display: flex;
+    flex-direction: row;  
+    border: 2px solid;
+    width: 20vw;
+    padding-left:5vw;
+}
+.positon{
+    width: 100px;
+}
 .example-card{
-    margin:auto;
+   width:  40%;
+   margin: auto;
+}
+.ok{
+    background-color: rgb(77, 71, 71);
 }

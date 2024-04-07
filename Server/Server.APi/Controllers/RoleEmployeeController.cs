@@ -34,7 +34,7 @@ namespace Server.APi.Controllers
         }
 
         // GET api/<RoleEmployeeController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{ide}/{idr}")]
         public async Task<ActionResult> Get(int ide,int idr)
         {
             var roleEmployee = await _roleEmployeeService.GetByIdAsync(ide,idr);
@@ -60,12 +60,13 @@ namespace Server.APi.Controllers
         public async Task<ActionResult> Put(int ide, int idr, [FromBody] RoleEmployeePostModel value)
         {
             var roleemployeeDto = _mapper.Map<RoleEmployee>(value);
+            roleemployeeDto.Status = true;
             var updateRoleEmployeeTask = await _roleEmployeeService.UpdateAsync(ide, idr, roleemployeeDto);
             return Ok(updateRoleEmployeeTask);
         }
 
         // DELETE api/<RoleEmployeeController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{ide}/{idr}")]
         public async Task<ActionResult> Delete(int ide,int idr)
         {
             var roleemployee = await _roleEmployeeService.GetByIdAsync(ide,idr);

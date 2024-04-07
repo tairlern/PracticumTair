@@ -6,7 +6,7 @@
                 <mat-form-field>
                     <mat-label>Name Role</mat-label>
                     <mat-select placeholder="Name Role" (selectionChange)="chooseRole($event.value)">
-                        <mat-option value="{{nrole}}" *ngFor="let nrole of listNameRole">{{nrole}}</mat-option>
+                        <mat-option [value]='nrole' *ngFor="let nrole of listNameRole">{{nrole}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -19,8 +19,7 @@
             <div>
                 <mat-form-field>
                     <mat-label>DateOfStartingWork</mat-label>
-                    <input matInput placeholder="DateOfStartingWork" [matDatepicker]="picker1"
-                        formControlName="startDate" (dateChange)="updateDate($event)">
+                    <input matInput placeholder="DateOfStartingWork" [matDatepicker]="picker1" formControlName="startDate" >
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>

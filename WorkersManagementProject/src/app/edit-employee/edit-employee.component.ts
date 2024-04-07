@@ -17,6 +17,7 @@ import { EmployeeService } from '../service/employee.service';
 import { AddRoleComponent } from '../add-role/add-role.component';
 import { RoleEmployeeService } from '../service/role-employee.service';
 import { RoleService } from '../service/role.service';
+import { RoleEmployee } from '../models/RoleEmployee.model';
 
 @Component({
   selector: 'app-edit-employee',
@@ -42,6 +43,7 @@ import { RoleService } from '../service/role.service';
 export class EditEmployeeComponent implements OnInit {
   public DicNameRole: { id: number, name: string }[] = [];//מילון לפי שם תפקיד וקוד
   public listEmployeeRole: FormGroup[] = [];
+  public saveEmployeeRole: FormGroup[] = [];
   public employeeRole!: FormGroup;
   public formEmployee!: FormGroup;
   public employee!: Employee;
@@ -101,10 +103,18 @@ export class EditEmployeeComponent implements OnInit {
               "isManagement": new FormControl(resf[i].isManagement, [Validators.required]),
               "startDate": new FormControl(resf[i].startDate, [Validators.required]),
             });
-
+            const formGroupsave = new FormGroup({
+              "employeeId": new FormControl(this.employeeId),
+              "roleId": new FormControl(resf[i].roleId, [Validators.required]),
+              "isManagement": new FormControl(resf[i].isManagement, [Validators.required]),
+              "startDate": new FormControl(resf[i].startDate, [Validators.required]),
+            });
             this.listEmployeeRole.push(formGroup);
+          this.saveEmployeeRole.push(formGroupsave);
+          console.log("saveevvevv",this.saveEmployeeRole)
             console.log("list employee role", formGroup.value)
           }
+          
         }
       })
     }
@@ -157,22 +167,21 @@ export class EditEmployeeComponent implements OnInit {
     this.router.navigate(['../']);
   }
   edit() {
-    console.log("listtttttttttttttttt", this.listEmployeeRole);
+    console.log("listttttt", this.listEmployeeRole);
+    console.log("saveeeeeeeeee", this.saveEmployeeRole);
     console.log(this.formEmployee.value);
 
     this._employeeService.putEmployee(this.employeeId, this.formEmployee.value).subscribe({
       next: () => {
         for (let i = 0; i < this.listEmployeeRole.length; i++) {
-          // Add more properties as needed
-          this._roleEmployeeService.putEmmployeeRole(this.employeeId, this.listEmployeeRole[i].value.roleId, this.listEmployeeRole[i].value).subscribe({
+          console.log(this.employeeId, this.saveEmployeeRole[i].value.roleId, this.listEmployeeRole[i].value)
+          this._roleEmployeeService.putEmmployeeRole(this.employeeId, this.saveEmployeeRole[i].value.roleId, this.listEmployeeRole[i].value).subscribe({
             error: (err) => {
               console.error("Error saving data for role:");
             }
           });
           break; // exit the loop after updating the existing role
         }
-
-
         this.router.navigate(['../']);
         console.log(this.formEmployee.value, "השמירה");
       },
@@ -182,18 +191,12 @@ export class EditEmployeeComponent implements OnInit {
     });
   }
   chooseRole(selectedRole: number, i: number) {
-    debugger;
-    let befor = this.listEmployeeRole[i].value.roleId
-    console.log("befor",befor)
     if (this.DicNameRole.hasOwnProperty(selectedRole)) {
       const selectedRoleName = this.DicNameRole[selectedRole].name;
-
       this._roleService.getRoleByNameServer(selectedRoleName).subscribe({
         next: (res) => {
           if (res && res.id) {
-
-            this.listEmployeeRole[i].get('roleId')?.setValue(res.id); 
-            this._roleEmployeeService.putEmmployeeRole(this.employeeId,befor,this.listEmployeeRole[i].value).subscribe()
+            this.listEmployeeRole[i].get('roleId')?.setValue(res.id);
           } else {
             console.log("Role or Role id is undefined");
           }
@@ -205,7 +208,6 @@ export class EditEmployeeComponent implements OnInit {
     } else {
       console.log("Selected role does not exist in DicNameRole");
     }
-    console.log("listtttttttttttttttt", this.listEmployeeRole)
   }
   deleteRole(i: number) {
     let id = this.listEmployeeRole[i].value

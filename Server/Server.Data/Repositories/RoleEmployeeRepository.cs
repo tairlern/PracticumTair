@@ -31,12 +31,16 @@ namespace Server.Data.Repositories
             await _context.SaveChangesAsync();
             return remployee;
         }
+       
         public async Task<RoleEmployee> UpdateAsync(int ide,int idr, RoleEmployee roleemployee)
         {
             var existrEmployee = await GetByIdAsync(ide,idr);
-            roleemployee.EmployeeId=existrEmployee.EmployeeId;
-           roleemployee.RoleId=existrEmployee.RoleId;
-            _context.Entry(existrEmployee).CurrentValues.SetValues(roleemployee);
+            //existrEmployee.RoleId = roleemployee.RoleId ;
+            //existrEmployee.IsManagement= roleemployee.IsManagement;
+            //existrEmployee.StartDate = roleemployee.StartDate;
+            _context.Remove(existrEmployee);
+            _context.Add(roleemployee);
+           //_context.Entry(existrEmployee).CurrentValues.SetValues(roleemployee);
             await _context.SaveChangesAsync();
             return existrEmployee;
         }

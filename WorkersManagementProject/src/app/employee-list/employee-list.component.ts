@@ -56,6 +56,17 @@ export class EmployeeListComponent implements OnInit {
 
   }
   saveinExel() {
-    console.log("saveinexel")
-  }
+    import('xlsx').then((xlsx) => {
+        const fileName = 'employees.xlsx';
+        const worksheet = xlsx.utils.json_to_sheet(this.ELEMENT_DATA.map(data => ({
+            lastName: data.lastName,
+            firstName: data.firstName,
+            id: data.id,
+            startWork: data.startWork
+        })));
+        const workbook = xlsx.utils.book_new();
+        xlsx.utils.book_append_sheet(workbook, worksheet, 'Employees');
+        xlsx.writeFile(workbook, fileName);
+    });
+}
 }

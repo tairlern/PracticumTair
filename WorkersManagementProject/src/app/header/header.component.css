@@ -1,0 +1,11 @@
+.profile-avatar{
+    width: 5vw;
+    height: 10vh;
+}
+.header{
+    display: flex;
+    flex-direction: row;   
+}
+.h1{
+    text-align: center;
+}

@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AddRoleComponent } from '../add-role/add-role.component';
 import { EmployeeService } from '../service/employee.service';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-add-employee',
   standalone: true,
@@ -23,7 +24,7 @@ import { EmployeeService } from '../service/employee.service';
     MatSelectModule,
     MatInputModule,
     AddRoleComponent,
-    CommonModule,
+    CommonModule, MatIconModule,
     MatDatepickerModule],
   templateUrl: './add-employee.component.html',
   styleUrl: './add-employee.component.css'
@@ -68,23 +69,32 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   addRole() {
-    this._employeeService.postEmployeeServer(this.addForm.value).subscribe({
-      next: () => {
-        this.isAddRole = true
-        this._employeeService.getEmployTableServer().subscribe({
-          next: (resful) => {
-            this.employeeId = Number(resful.find(emp => emp.tz === this.addForm.value.tz)?.id) ?? null;
-            this.dialog.open(AddRoleComponent, { data: { employeeId: this.employeeId } });
-          }
-        });
-      },
-      error: (err) => {
-        console.log(err)
-      }
-    })
+    if (this.isAddRole === false) {
+      this._employeeService.postEmployeeServer(this.addForm.value).subscribe({
+        next: () => {
+          this.isAddRole = true;
+          this._employeeService.getEmployTableServer().subscribe({
+            next: (resful) => {
+              this.employeeId = Number(resful.find(emp => emp.tz === this.addForm.value.tz)?.id) ?? null;
+              this.dialog.open(AddRoleComponent, { data: { employeeId: this.employeeId } });
+            },
+            error: (err) => console.log(err)
+          });
+        }
+
+      })
+    }
+
+    else {
+      this._employeeService.getEmployTableServer().subscribe({
+        next: (resful) => {
+          this.employeeId = Number(resful.find(emp => emp.tz === this.addForm.value.tz)?.id) ?? null;
+          this.dialog.open(AddRoleComponent, { data: { employeeId: this.employeeId } });
+        },
+        error: (err) => console.log(err)
+      })
+    }
   }
-
-
 
   cencel() {
     this.router.navigate(['../']);
@@ -95,7 +105,7 @@ export class AddEmployeeComponent implements OnInit {
   add() {
     if (this.isAddRole === false) {
       this._employeeService.postEmployeeServer(this.addForm.value).subscribe();
-    } 
+    }
     this.router.navigate(['../']);
   }
 }

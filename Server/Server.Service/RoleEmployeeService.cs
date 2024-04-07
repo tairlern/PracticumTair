@@ -49,7 +49,7 @@ namespace Server.Service
         }
         public async Task<RoleEmployee> UpdateAsync(int ide,int idr, RoleEmployee roleEmployee)
         {
-            if (roleEmployee != null && roleEmployee.StartDate >= DateTime.Today)
+            if (roleEmployee != null )
             {
                 return await _roleEmployeeRepository.UpdateAsync(ide,idr, roleEmployee);
             }

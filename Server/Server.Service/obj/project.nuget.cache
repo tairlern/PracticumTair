@@ -1,14 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "7a8c0841xwTbao1EmaZ86he6Jb34QYC2CfJXZimujSlBwzojmpqGxlSvHPTHc1nqM82ESPnCramxFzITDKbrcw==",
+  "dgSpecHash": "VnM+VInWTSwj1P+41xw1ZOqBV2RecS/Sa3bxtMkZ1wkauAB+SJOnhdru2SPtpugpDPGC1aK379bgyKsd8JyKRg==",
   "success": true,
   "projectFilePath": "Y:\\Groups\\Group_3\\ניזרי  תאיר יהודית\\פרקטיקום\\Server\\Server.Service\\Server.Service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hitmachut\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
-    "C:\\Users\\hitmachut\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
-    "C:\\Users\\hitmachut\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.28\\microsoft.windowsdesktop.app.ref.6.0.28.nupkg.sha512",
-    "C:\\Users\\hitmachut\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.28\\microsoft.netcore.app.ref.6.0.28.nupkg.sha512",
-    "C:\\Users\\hitmachut\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.28\\microsoft.aspnetcore.app.ref.6.0.28.nupkg.sha512"
+    "C:\\Users\\hitmachut\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }
