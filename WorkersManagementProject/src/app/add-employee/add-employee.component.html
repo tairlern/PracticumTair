@@ -1,58 +1,79 @@
-<mat-card class="example-card" >
-    <button  mat-button (click)="cencel()" class="cancel"> <mat-icon style="width:200px; height: 30px; color: red;">cancel</mat-icon> </button>
+<mat-card class="example-card">
+    <button mat-button (click)="cencel()" class="cancel"> <mat-icon
+            style="width:200px; height: 30px; color: red;">cancel</mat-icon> </button>
     <mat-card-header>
         <mat-card-title>Add Employee</mat-card-title>
     </mat-card-header>
     <mat-card-content>
         <form [formGroup]="addForm" id="form">
-        <div>
-            <mat-form-field>
-                <mat-label>Last Name</mat-label>
-                <input matInput placeholder="Last Name" formControlName="lastName">
-            </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field>
-                <mat-label>First Name</mat-label>
-                <input matInput placeholder="First Name" formControlName="firstName">
-            </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field>
-                <mat-label>Id</mat-label>
-                <input matInput placeholder="Id" formControlName="tz">
-            </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field>
-                <mat-label>Start Work</mat-label>
-                <input matInput placeholder="Start Work" [matDatepicker]="picker1"  formControlName="startWork" (dateChange)="updateDate($event)">
-                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker>
-            </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field>
-                <mat-label>Date of Birth</mat-label>
-                <input matInput placeholder="Date of Birth" [matDatepicker]="picker2"  formControlName="dateBirth" (dateChange)="updateDateBirth($event)">
-                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                <mat-datepicker #picker2></mat-datepicker>
-            </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field>
-                <mat-label>Kind</mat-label>
-                <mat-select placeholder="Kind" formControlName="kind">
-                    <mat-option  value="male">Male</mat-option>
-                    <mat-option value="female">Female</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-       </form> 
+            <div>
+                <mat-form-field>
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="Last Name" formControlName="lastName">
+                </mat-form-field>
+                <ng-container *ngIf="this.addForm.controls['lastName'].errors as lastNameError">
+                    <p class="err" *ngIf="lastNameError['required']">*this field is must!</p>
+                </ng-container>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>First Name</mat-label>
+                    <input matInput placeholder="First Name" formControlName="firstName">
+                </mat-form-field>
+                <ng-container *ngIf="this.addForm.controls['firstName'].errors as firstNameError">
+                    <p class="err" *ngIf="firstNameError['required']">*this field is must!</p>
+                </ng-container>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Id</mat-label>
+                    <input matInput placeholder="Id" formControlName="tz">
+                </mat-form-field>
+                <ng-container *ngIf="this.addForm.controls['tz'].errors as tzError">
+                    <p class="err" *ngIf="tzError['required']">*this field is must!</p>
+                </ng-container>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Start Work</mat-label>
+                    <input matInput placeholder="Start Work" [matDatepicker]="picker1" formControlName="startWork"
+                        (dateChange)="updateDate($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+                <ng-container *ngIf="this.addForm.controls['startWork'].errors as startWorkError">
+                    <p class="err" *ngIf="startWorkError['required']">*this field is must!</p>
+                </ng-container>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput placeholder="Date of Birth" [matDatepicker]="picker2" formControlName="dateBirth"
+                        (dateChange)="updateDateBirth($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+                <ng-container *ngIf="this.addForm.controls['dateBirth'].errors as dateBirthError">
+                    <p class="err" *ngIf="dateBirthError['required']">*this field is must!</p>
+                </ng-container>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Kind</mat-label>
+                    <mat-select placeholder="Kind" formControlName="kind">
+                        <mat-option value="male">Male</mat-option>
+                        <mat-option value="female">Female</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <ng-container *ngIf="this.addForm.controls['kind'].errors as kindError">
+                    <p class="err" *ngIf="kindError['required']">*you must choos!</p>
+                </ng-container>
+            </div>
+        </form>
         <button mat-button (click)="addRole()" [disabled]="!this.addForm.valid">Add Role</button>
-    
+
     </mat-card-content>
- 
+
     <mat-card-actions class="buttons">
         <button mat-button (click)="add()" [disabled]="!this.addForm.valid">Add</button>
     </mat-card-actions>

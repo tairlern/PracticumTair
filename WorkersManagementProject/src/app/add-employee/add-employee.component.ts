@@ -32,8 +32,8 @@ import { MatIconModule } from '@angular/material/icon';
 export class AddEmployeeComponent implements OnInit {
   public addForm!: FormGroup;
   public isAddRole: boolean = false
-  employeeId!: number
-
+  public employeeId!: number
+public save=false;
   constructor(private _employeeService: EmployeeService,
     private router: Router,
     public dialog: MatDialog) { }
@@ -69,6 +69,7 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   addRole() {
+    this.save=true
     if (this.isAddRole === false) {
       this._employeeService.postEmployeeServer(this.addForm.value).subscribe({
         next: () => {
@@ -103,6 +104,7 @@ export class AddEmployeeComponent implements OnInit {
 
 
   add() {
+   this.save=true
     if (this.isAddRole === false) {
       this._employeeService.postEmployeeServer(this.addForm.value).subscribe();
     }

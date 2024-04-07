@@ -58,7 +58,7 @@ export class EditEmployeeComponent implements OnInit {
       "employeeId": new FormControl(this.employeeId),
       "roleId": new FormControl('', [Validators.required]),
       "isManagement": new FormControl(false, [Validators.required]),
-      "startDate": new FormControl("", [Validators.required]),
+      "startDate": new FormControl("", [Validators.required , this.goodDate.bind(this)]),
     });
   }
 
@@ -101,13 +101,13 @@ export class EditEmployeeComponent implements OnInit {
               "employeeId": new FormControl(this.employeeId),
               "roleId": new FormControl(resf[i].roleId, [Validators.required]),
               "isManagement": new FormControl(resf[i].isManagement, [Validators.required]),
-              "startDate": new FormControl(resf[i].startDate, [Validators.required]),
+              "startDate": new FormControl(resf[i].startDate, [Validators.required, this.goodDate.bind(this)]),
             });
             const formGroupsave = new FormGroup({
               "employeeId": new FormControl(this.employeeId),
               "roleId": new FormControl(resf[i].roleId, [Validators.required]),
               "isManagement": new FormControl(resf[i].isManagement, [Validators.required]),
-              "startDate": new FormControl(resf[i].startDate, [Validators.required]),
+              "startDate": new FormControl(resf[i].startDate, [Validators.required , this.goodDate.bind(this)]),
             });
             this.listEmployeeRole.push(formGroup);
           this.saveEmployeeRole.push(formGroupsave);
@@ -127,7 +127,20 @@ export class EditEmployeeComponent implements OnInit {
       "kind": new FormControl("", [Validators.required]),
     })
   }
-
+  goodDate() {
+    const startDateControl = this.employeeRole?.get('startDate');
+  
+    if (startDateControl && this.employee && this.employee.startWork) {
+      const startDate = startDateControl.value;
+      const employeeStartWorkDate = new Date(this.employee.startWork);
+      const roleStartDate = new Date(startDate);
+  
+      if (roleStartDate < employeeStartWorkDate) {
+        return { invalidDate: true };
+      }
+    }
+    return null;
+  }
   updateDate(event: MatDatepickerInputEvent<Date>) {
     if (event.value) {
       const selectedDate = event.value;

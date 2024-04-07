@@ -25,3 +25,6 @@
 .ok{
     background-color: rgb(77, 71, 71);
 }
+.err{
+    color: red;
+}

@@ -61,10 +61,15 @@ export class AddRoleComponent implements OnInit {
       error: (err) => { console.log(err) }
     });
   }
-
   goodDate() {
-    if (this.FormRoleEmp && this.FormRoleEmp.value && this.FormRoleEmp.value.startDate && this.employee && this.employee.startWork) {
-      if (this.FormRoleEmp.value.startDate > this.employee.startWork) {
+    const startDateControl = this.FormRoleEmp?.get('startDate');
+  
+    if (startDateControl && this.employee && this.employee.startWork) {
+      const startDate = startDateControl.value;
+      const employeeStartWorkDate = new Date(this.employee.startWork);
+      const roleStartDate = new Date(startDate);
+  
+      if (roleStartDate < employeeStartWorkDate) {
         return { invalidDate: true };
       }
     }
