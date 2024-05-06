@@ -1,0 +1,52 @@
+table {
+    width: 70%;
+}
+
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+td,
+th {
+    width: 20%;
+}
+
+.button-add {
+    position: fixed;
+    bottom: 2%;
+    right: 2%;
+}
+.example-spacer {
+    flex: 1 1 auto;
+  }
+  .custom-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px; /* Adjust the height based on your toolbar height */
+  }
+  
+  .custom-search-field {
+    flex: 1;
+    margin-top: auto;
+    padding-left: 0px;
+  }
+  
+  .custom-input {
+    width: 100%;
+  }
+  .custom-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px; /* Adjust the height based on your toolbar height */
+  }
+  
+  .custom-search-field {
+    margin-right: auto;
+  }
+  
+  .spacer {
+    flex: 1;
+  }

@@ -16,6 +16,9 @@ export class RoleEmployeeService {
     console.log("servise post emprol", roleEmployee)
     return this.http.post<void>(`https://localhost:7223/api/RoleEmployee`, roleEmployee);
   }
+  getRoleEmployee(ide: number, idr: number):Observable<RoleEmployee>{
+    return this.http.get<RoleEmployee>(`https://localhost:7223/api/RoleEmployee/${ide}/${idr}`)
+  }
   getRolesById(id: number): Observable<RoleEmployee[]> {
     return this.http.get<RoleEmployee[]>('https://localhost:7223/api/RoleEmployee')
       .pipe(

@@ -33,7 +33,7 @@ export class AddEmployeeComponent implements OnInit {
   public addForm!: FormGroup;
   public isAddRole: boolean = false
   public employeeId!: number
-public save=false;
+  public save = false;
   constructor(private _employeeService: EmployeeService,
     private router: Router,
     public dialog: MatDialog) { }
@@ -42,19 +42,25 @@ public save=false;
     this.addForm = new FormGroup({
       "firstName": new FormControl("", [Validators.required]),
       "lastName": new FormControl("", [Validators.required]),
-      "tz": new FormControl("", [Validators.required, Validators.minLength(9), Validators.maxLength(9)]),
+      "tz": new FormControl("", [Validators.required, Validators.minLength(9), Validators.maxLength(9), this.onlyNumbers]),
       "startWork": new FormControl("", [Validators.required]),
       "dateBirth": new FormControl("", [Validators.required]),
       "kind": new FormControl("", [Validators.required]),
-    })
+    });
+  }
 
+  onlyNumbers(control: FormControl): { [key: string]: any } | null {
+    const value = control.value;
+    if (value && !/^\d+$/.test(value)) {
+      return { onlyNumbers: true };
+    }
+    return null;
   }
 
   updateDate(event: MatDatepickerInputEvent<Date>) {
     if (event.value) {
       const selectedDate = event.value;
-      const formattedDate = selectedDate.toISOString();
-      const formattedDateForServer = formattedDate.slice(0, 10);
+      const formattedDateForServer = this.formatDateForServer(selectedDate);
       this.addForm.controls['startWork'].setValue(formattedDateForServer);
     }
   }
@@ -62,14 +68,20 @@ public save=false;
   updateDateBirth(event: MatDatepickerInputEvent<Date>) {
     if (event.value) {
       const selectedDate = event.value;
-      const formattedDate = selectedDate.toISOString();
-      const formattedDateForServer = formattedDate.slice(0, 10);
+      const formattedDateForServer = this.formatDateForServer(selectedDate);
       this.addForm.controls['dateBirth'].setValue(formattedDateForServer);
     }
   }
 
+  formatDateForServer(selectedDate: Date): string {
+    const year = selectedDate.getFullYear();
+    const month = selectedDate.getMonth() + 1 < 10 ? `0${selectedDate.getMonth() + 1}` : selectedDate.getMonth() + 1;
+    const day = selectedDate.getDate() < 10 ? `0${selectedDate.getDate()}` : selectedDate.getDate();
+    return `${year}-${month}-${day}`;
+  }
+
   addRole() {
-    this.save=true
+    this.save = true
     if (this.isAddRole === false) {
       this._employeeService.postEmployeeServer(this.addForm.value).subscribe({
         next: () => {
@@ -104,7 +116,7 @@ public save=false;
 
 
   add() {
-   this.save=true
+    this.save = true
     if (this.isAddRole === false) {
       this._employeeService.postEmployeeServer(this.addForm.value).subscribe();
     }

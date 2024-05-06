@@ -11,8 +11,9 @@
                     <mat-label>Last Name</mat-label>
                     <input matInput placeholder="Last Name" formControlName="lastName">
                 </mat-form-field>
-                <ng-container *ngIf="this.addForm.controls['lastName'].errors as lastNameError">
-                    <p class="err" *ngIf="lastNameError['required']">*this field is must!</p>
+                <ng-container *ngIf="this.addForm.get('lastName')?.invalid && this.addForm.get('lastName')?.touched">
+                    <mat-error *ngIf="this.addForm.get('lastName')?.hasError('required')">This field is
+                        required!</mat-error>
                 </ng-container>
             </div>
             <div>
@@ -20,8 +21,9 @@
                     <mat-label>First Name</mat-label>
                     <input matInput placeholder="First Name" formControlName="firstName">
                 </mat-form-field>
-                <ng-container *ngIf="this.addForm.controls['firstName'].errors as firstNameError">
-                    <p class="err" *ngIf="firstNameError['required']">*this field is must!</p>
+                <ng-container *ngIf="this.addForm.get('firstName')?.invalid && this.addForm.get('firstName')?.touched">
+                    <mat-error *ngIf="this.addForm.get('firstName')?.hasError('required')">This field is
+                        required!</mat-error>
                 </ng-container>
             </div>
             <div>
@@ -29,8 +31,13 @@
                     <mat-label>Id</mat-label>
                     <input matInput placeholder="Id" formControlName="tz">
                 </mat-form-field>
-                <ng-container *ngIf="this.addForm.controls['tz'].errors as tzError">
-                    <p class="err" *ngIf="tzError['required']">*this field is must!</p>
+                <ng-container *ngIf="this.addForm.get('tz')?.invalid && this.addForm.get('tz')?.touched">
+                    <mat-error *ngIf="this.addForm.get('tz')?.hasError('required')">This field is required!</mat-error>
+                    <mat-error *ngIf="this.addForm.get('tz')?.hasError('minlength')">Minimum 9 characters
+                        required!</mat-error>
+                    <mat-error *ngIf="this.addForm.get('tz')?.hasError('maxlength')">Maximum 9 characters
+                        allowed!</mat-error>
+                    <mat-error *ngIf="this.addForm.get('tz')?.hasError('onlyNumbers')">Only numbers allowed!</mat-error>
                 </ng-container>
             </div>
             <div>
@@ -41,9 +48,11 @@
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
-                <ng-container *ngIf="this.addForm.controls['startWork'].errors as startWorkError">
-                    <p class="err" *ngIf="startWorkError['required']">*this field is must!</p>
+                <ng-container *ngIf="this.addForm.get('startWork')?.invalid && this.addForm.get('startWork')?.touched">
+                    <mat-error *ngIf="this.addForm.get('startWork')?.hasError('required')">This field is
+                        required!</mat-error>
                 </ng-container>
+
             </div>
             <div>
                 <mat-form-field>
@@ -53,9 +62,11 @@
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                 </mat-form-field>
-                <ng-container *ngIf="this.addForm.controls['dateBirth'].errors as dateBirthError">
-                    <p class="err" *ngIf="dateBirthError['required']">*this field is must!</p>
+                <ng-container *ngIf="this.addForm.get('dateBirth')?.invalid && this.addForm.get('dateBirth')?.touched">
+                    <mat-error *ngIf="this.addForm.get('dateBirth')?.hasError('required')">This field is
+                        required!</mat-error>
                 </ng-container>
+
             </div>
             <div>
                 <mat-form-field>
@@ -65,9 +76,11 @@
                         <mat-option value="female">Female</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <ng-container *ngIf="this.addForm.controls['kind'].errors as kindError">
-                    <p class="err" *ngIf="kindError['required']">*you must choos!</p>
+                <ng-container *ngIf="this.addForm.get('kind')?.invalid && this.addForm.get('kind')?.touched">
+                    <mat-error *ngIf="this.addForm.get('kind')?.hasError('required')">This field is
+                        required!</mat-error>
                 </ng-container>
+
             </div>
         </form>
         <button mat-button (click)="addRole()" [disabled]="!this.addForm.valid">Add Role</button>

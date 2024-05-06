@@ -9,4 +9,5 @@ export const routes: Routes = [
     { path: '', component:EmployeeListComponent },
     { path: 'add-employee', component:AddEmployeeComponent },
     { path: 'edit-employee', component:EditEmployeeComponent },
+    
 ];

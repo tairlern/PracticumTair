@@ -1,4 +1,3 @@
-
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,36 +17,37 @@ import { Role } from '../models/Role.model';
 import { RoleEmployeeService } from '../service/role-employee.service';
 import { Employee } from '../models/Employee.model';
 import { EmployeeService } from '../service/employee.service';
-
-
+import { RoleEmployee } from '../models/RoleEmployee.model';
 @Component({
-  selector: 'app-add-role',
+  selector: 'app-edit-role',
   standalone: true,
   providers: [provideNativeDateAdapter()],
   imports: [ReactiveFormsModule, MatCardModule,
     MatButtonModule, MatFormFieldModule,
     MatSelectModule, MatInputModule,
-    AddRoleComponent, CommonModule,
+    CommonModule,
     MatCheckboxModule, MatDatepickerModule,
     MatDialogTitle, MatDialogContent,
     MatDialogActions, MatDialogClose,
     MatButtonModule,],
-  templateUrl: './add-role.component.html',
-  styleUrl: './add-role.component.css'
+  templateUrl: './edit-role.component.html',
+  styleUrl: './edit-role.component.css'
 })
-export class AddRoleComponent implements OnInit {
+export class EditRoleComponent implements OnInit {
   listRole: Role[] = [];
   listNameRole: String[] = [];
+  roleEmploye!: RoleEmployee;
   public FormRoleEmp!: FormGroup;
   public role!: Role;
   public employee!: Employee
 
-  constructor(private _roleService: RoleService, private _employeeService: EmployeeService, private _roleEmployeeService: RoleEmployeeService, @Inject(MAT_DIALOG_DATA) public data: { employeeId: number }, private dialog: Dialog) {
+  constructor(private _roleService: RoleService, private _employeeService: EmployeeService, private _roleEmployeeService: RoleEmployeeService, @Inject(MAT_DIALOG_DATA) public data: { employeeId: number, roleId: number }, private dialog: Dialog) {
+   console.log("constractor",this.roleEmploye)
     this.FormRoleEmp = new FormGroup({
       "employeeId": new FormControl(data.employeeId),
-      "roleId": new FormControl('', [Validators.required]),
-      "isManagement": new FormControl(false, [Validators.required]),
-      "startDate": new FormControl("", [Validators.required, this.goodDate.bind(this)]),
+      "roleId": new FormControl(data.roleId, [Validators.required]),
+      "isManagement": new FormControl(this.roleEmploye?.isManagement, [Validators.required]),
+      "startDate": new FormControl(this.roleEmploye?.startDate, [Validators.required, this.goodDate.bind(this)]),
     });
   }
 
@@ -60,15 +60,28 @@ export class AddRoleComponent implements OnInit {
       },
       error: (err) => { console.log(err) }
     });
+    this._roleEmployeeService.getRoleEmployee(this.data.employeeId, this.data.roleId).subscribe({
+      next: (res) => {
+        this.roleEmploye = res;
+        this.FormRoleEmp = new FormGroup({
+          "employeeId": new FormControl(this.data.employeeId),
+          "roleId": new FormControl(this.data.roleId, [Validators.required]),
+          "isManagement": new FormControl(this.roleEmploye?.isManagement, [Validators.required]),
+          "startDate": new FormControl(this.roleEmploye?.startDate, [Validators.required, this.goodDate.bind(this)]),
+        });
+
+      },
+      error: (err) => { console.log(err) }
+    });
   }
   goodDate() {
     const startDateControl = this.FormRoleEmp?.get('startDate');
-  
+
     if (startDateControl && this.employee && this.employee.startWork) {
       const startDate = startDateControl.value;
       const employeeStartWorkDate = new Date(this.employee.startWork);
       const roleStartDate = new Date(startDate);
-  
+
       if (roleStartDate < employeeStartWorkDate) {
         return { invalidDate: true };
       }
@@ -113,3 +126,4 @@ export class AddRoleComponent implements OnInit {
     this.dialog.closeAll();
   }
 }
+
