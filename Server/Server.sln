@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.APi", "Server.APi\Server.APi.csproj", "{5970AA19-3D6E-407E-A80C-8D5C6E5BCD51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.APi", "Server.APi\Server.APi.csproj", "{5970AA19-3D6E-407E-A80C-8D5C6E5BCD51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Core", "Server.Core\Server.Core.csproj", "{C095B661-81CF-4592-BCAC-83AD308E2397}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.Core", "Server.Core\Server.Core.csproj", "{C095B661-81CF-4592-BCAC-83AD308E2397}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Data", "Server.Data\Server.Data.csproj", "{08B9C8F1-537F-4B6C-9562-F4F28603D174}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.Data", "Server.Data\Server.Data.csproj", "{08B9C8F1-537F-4B6C-9562-F4F28603D174}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Service", "Server.Service\Server.Service.csproj", "{7C912C1A-0B72-48AF-8F68-BD8FB238E6E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.Service", "Server.Service\Server.Service.csproj", "{7C912C1A-0B72-48AF-8F68-BD8FB238E6E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

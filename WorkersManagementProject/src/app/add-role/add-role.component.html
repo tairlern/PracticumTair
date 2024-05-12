@@ -5,24 +5,32 @@
             <div>
                 <mat-form-field>
                     <mat-label>Name Role</mat-label>
-                    <mat-select placeholder="Name Role" (selectionChange)="chooseRole($event.value)">
+                    <mat-select placeholder="Name Role" formControlName="nameRole" (selectionChange)="chooseRole($event.value)">
                         <mat-option [value]='nrole' *ngFor="let nrole of listNameRole">{{nrole}}</mat-option>
                     </mat-select>
                 </mat-form-field>
+                <ng-container *ngIf="listNameRole.length === 0 && this.FormRoleEmp.get('nameRole')?.touched">
+                    <mat-error>Name Role is required and no roles are available!</mat-error>
+                </ng-container>
             </div>
             <div>
                 <section class="example-section">
                     <label class="example-margin"> Choose: </label>
                     <mat-checkbox formControlName="isManagement"> isManagerialPosition</mat-checkbox>
                 </section>
+                
             </div>
             <div>
                 <mat-form-field>
                     <mat-label>DateOfStartingWork</mat-label>
-                    <input matInput placeholder="DateOfStartingWork" [matDatepicker]="picker1" formControlName="startDate" >
+                    <input matInput placeholder="DateOfStartingWork" [matDatepicker]="picker1" formControlName="startDate" (dateChange)="updateDate($event)" >
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
+                <ng-container *ngIf="this.FormRoleEmp.get('startDate')?.invalid && this.FormRoleEmp.get('startDate')?.touched">
+                    <mat-error *ngIf="this.FormRoleEmp.get('startDate')?.hasError('required')">This field is required!</mat-error>
+                    <mat-error *ngIf="this.FormRoleEmp.get('startDate')?.hasError('invalidDate')">The date must be equal to or after the job start date!</mat-error>
+                </ng-container>
             </div>
         </form>
     </mat-card-content>

@@ -85,6 +85,7 @@ export class AddEmployeeComponent implements OnInit {
     if (this.isAddRole === false) {
       this._employeeService.postEmployeeServer(this.addForm.value).subscribe({
         next: () => {
+          console.log("האדם אליו מוסיפים תפקיד",this.addForm.value)
           this.isAddRole = true;
           this._employeeService.getEmployTableServer().subscribe({
             next: (resful) => {

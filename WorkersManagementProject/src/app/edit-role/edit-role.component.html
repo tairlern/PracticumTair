@@ -5,7 +5,7 @@
             <div>
                 <mat-form-field>
                     <mat-label>Name Role</mat-label>
-                    <mat-select placeholder="Name Role" (selectionChange)="chooseRole($event.value)" >
+                    <mat-select placeholder="Name Role" (selectionChange)="chooseRole($event.value)" value={{listNameRole[data.roleId-1]}} >
                         <mat-option [value]='nrole' *ngFor="let nrole of listNameRole">{{nrole}}</mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -19,15 +19,19 @@
             <div>
                 <mat-form-field>
                     <mat-label>DateOfStartingWork</mat-label>
-                    <input matInput placeholder="DateOfStartingWork" [matDatepicker]="picker1" formControlName="startDate" >
+                    <input matInput placeholder="DateOfStartingWork" [matDatepicker]="picker1" formControlName="startDate" (dateChange)="updateDate($event)"  >
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
+                <ng-container *ngIf="this.FormRoleEmp.get('startDate')?.invalid && this.FormRoleEmp.get('startDate')?.touched">
+                    <mat-error *ngIf="this.FormRoleEmp.get('startDate')?.hasError('required')">This field is required!</mat-error>
+                    <mat-error *ngIf="this.FormRoleEmp.get('startDate')?.hasError('invalidDate')">The date must be equal to or after the job start date!</mat-error>
+                </ng-container>
             </div>
         </form>
     </mat-card-content>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-button (click)="Add()" [disabled]="!this.FormRoleEmp.valid">Add Role</button>
+    <button mat-button (click)="Add()" [disabled]="!this.FormRoleEmp.valid">Edit Role</button>
     <button mat-button mat-dialog-close >Cancel</button>
 </mat-dialog-actions>

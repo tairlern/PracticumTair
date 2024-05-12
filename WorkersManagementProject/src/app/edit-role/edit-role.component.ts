@@ -42,7 +42,7 @@ export class EditRoleComponent implements OnInit {
   public employee!: Employee
 
   constructor(private _roleService: RoleService, private _employeeService: EmployeeService, private _roleEmployeeService: RoleEmployeeService, @Inject(MAT_DIALOG_DATA) public data: { employeeId: number, roleId: number }, private dialog: Dialog) {
-   console.log("constractor",this.roleEmploye)
+   console.log("constractor",data.roleId)
     this.FormRoleEmp = new FormGroup({
       "employeeId": new FormControl(data.employeeId),
       "roleId": new FormControl(data.roleId, [Validators.required]),
@@ -91,10 +91,17 @@ export class EditRoleComponent implements OnInit {
 
   updateDate(event: MatDatepickerInputEvent<Date>) {
     if (event.value) {
-      const selectedDate = new Date(event.value);
-      const formattedDateForServer = selectedDate.toISOString().substring(0, 10);
-      this.FormRoleEmp.get('startDate')?.setValue(formattedDateForServer);
+      const selectedDate = event.value;
+      const formattedDateForServer = this.formatDateForServer(selectedDate);
+      this.FormRoleEmp.controls['startDate'].setValue(formattedDateForServer);
     }
+  }
+
+  formatDateForServer(selectedDate: Date): string {
+    const year = selectedDate.getFullYear();
+    const month = selectedDate.getMonth() + 1 < 10 ? `0${selectedDate.getMonth() + 1}` : selectedDate.getMonth() + 1;
+    const day = selectedDate.getDate() < 10 ? `0${selectedDate.getDate()}` : selectedDate.getDate();
+    return `${year}-${month}-${day}`;
   }
 
   chooseRole(selectedRole: string) {
@@ -117,7 +124,10 @@ export class EditRoleComponent implements OnInit {
   Add() {
     console.log("post role", this.FormRoleEmp.value)
 
-    this._roleEmployeeService.postRoleEmployee(this.FormRoleEmp.value).subscribe({
+    this._roleEmployeeService.putEmmployeeRole(this.data.employeeId,this.data.roleId,this.FormRoleEmp.value).subscribe({
+      next:()=>{
+        location.reload();
+      },
       error: (err) => {
         console.log(err)
       }

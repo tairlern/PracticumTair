@@ -38,37 +38,64 @@ import { EmployeeService } from '../service/employee.service';
 export class AddRoleComponent implements OnInit {
   listRole: Role[] = [];
   listNameRole: String[] = [];
+  listRoleEmployee:number[]=[];
   public FormRoleEmp!: FormGroup;
   public role!: Role;
   public employee!: Employee
 
+  // constructor(private _roleService: RoleService, private _employeeService: EmployeeService, private _roleEmployeeService: RoleEmployeeService, @Inject(MAT_DIALOG_DATA) public data: { employeeId: number }, private dialog: Dialog) {
+  //   this.FormRoleEmp = new FormGroup({
+  //     "employeeId": new FormControl(data.employeeId),
+  //     "roleId": new FormControl('', [Validators.required]),
+  //     "isManagement": new FormControl(false, [Validators.required]),
+  //     "startDate": new FormControl("", [Validators.required, this.goodDate.bind(this)]),
+  //   });
+  // }
   constructor(private _roleService: RoleService, private _employeeService: EmployeeService, private _roleEmployeeService: RoleEmployeeService, @Inject(MAT_DIALOG_DATA) public data: { employeeId: number }, private dialog: Dialog) {
     this.FormRoleEmp = new FormGroup({
       "employeeId": new FormControl(data.employeeId),
       "roleId": new FormControl('', [Validators.required]),
       "isManagement": new FormControl(false, [Validators.required]),
       "startDate": new FormControl("", [Validators.required, this.goodDate.bind(this)]),
+      "nameRole": new FormControl('', [Validators.required])
     });
   }
 
   ngOnInit(): void {
-    this._roleService.getRoleTableServer().subscribe({
-      next: (res) => {
-        this.listRole = res;
-        this.listNameRole = this.listRole.map(role => role.name);
-        this._employeeService.getEmployeeById(this.data.employeeId).subscribe({ next: (res) => { this.employee = res } })
-      },
-      error: (err) => { console.log(err) }
-    });
+this._roleEmployeeService.getRolesById(this.data.employeeId).subscribe({
+  next:(res)=>{
+    this.listRoleEmployee=res.map(l=>l.roleId);
   }
+})
+    this._roleService.getRoleTableServer().subscribe({
+        next: (res) => {
+            this.listRole = res;
+            this._employeeService.getEmployeeById(this.data.employeeId).subscribe({
+                next: (res) => {
+                    this.employee = res;
+                    // Filter out roles that are assigned to the current employee
+                    this.listNameRole = this.listRole
+                        .filter(role => !this.listRoleEmployee.includes(role.id))
+                        .map(role => role.name);
+                },
+                error: (err) => {
+                    console.log(err);
+                }
+            });
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    });
+}
   goodDate() {
     const startDateControl = this.FormRoleEmp?.get('startDate');
-  
+
     if (startDateControl && this.employee && this.employee.startWork) {
       const startDate = startDateControl.value;
       const employeeStartWorkDate = new Date(this.employee.startWork);
       const roleStartDate = new Date(startDate);
-  
+
       if (roleStartDate < employeeStartWorkDate) {
         return { invalidDate: true };
       }
@@ -78,33 +105,50 @@ export class AddRoleComponent implements OnInit {
 
   updateDate(event: MatDatepickerInputEvent<Date>) {
     if (event.value) {
-      const selectedDate = new Date(event.value);
-      const formattedDateForServer = selectedDate.toISOString().substring(0, 10);
-      this.FormRoleEmp.get('startDate')?.setValue(formattedDateForServer);
+      const selectedDate = event.value;
+      const formattedDateForServer = this.formatDateForServer(selectedDate);
+      this.FormRoleEmp.controls['startDate'].setValue(formattedDateForServer);
     }
   }
 
-  chooseRole(selectedRole: string) {
+  formatDateForServer(selectedDate: Date): string {
+    const year = selectedDate.getFullYear();
+    const month = selectedDate.getMonth() + 1 < 10 ? `0${selectedDate.getMonth() + 1}` : selectedDate.getMonth() + 1;
+    const day = selectedDate.getDate() < 10 ? `0${selectedDate.getDate()}` : selectedDate.getDate();
+    return `${year}-${month}-${day}`;
+  }
+
+
+
+  chooseRole(selectedRole: string) { 
+  
+if (this.listNameRole.length === 0) {
+  setTimeout(() => {
+      console.log('Error: No roles are available');
+      this.dialog.closeAll();
+  }, 2000);
+}
     this._roleService.getRoleByNameServer(selectedRole).subscribe({
       next: (res) => {
-        this.role = res;
+        this.role = res; 
         console.log(this.role, "role in next this position return")
         if (this.role && this.role.id) {
-          this.FormRoleEmp.get('roleId')?.setValue(this.role.id);
-        } else {
-          console.log("Role or Role id is undefined");
-        }
-      },
-      error: (err) => {
-        console.log("chooseRole", err);
-      }
+          this.FormRoleEmp.get('nameRole')?.setValue(selectedRole);
+  // Update the nameRole form control 
+  this.FormRoleEmp.get('roleId')?.setValue(this.role.id); // Update the roleId form control 
+        } else { console.log("Role or Role id is undefined"); }
+      }, error: (err) => { console.log("chooseRole", err); }
     });
   }
+
 
   Add() {
     console.log("post role", this.FormRoleEmp.value)
 
     this._roleEmployeeService.postRoleEmployee(this.FormRoleEmp.value).subscribe({
+      next:()=>{
+        location.reload();
+      },
       error: (err) => {
         console.log(err)
       }

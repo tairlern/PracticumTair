@@ -13,7 +13,6 @@ export class RoleService {
     return this.http.get<Role[]>('https://localhost:7223/api/Role')
   }
   getRoleByNameServer(selectedRole: string): Observable<Role> {
-    //  this.http.get<Role[]>('https://localhost:7223/api/Role')
    return this.http.get<Role[]>('https://localhost:7223/api/Role')
       .pipe(
         map((roles: Role[]) => roles.find(rol => rol.name == selectedRole)!)
