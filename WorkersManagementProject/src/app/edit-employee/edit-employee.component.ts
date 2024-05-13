@@ -61,13 +61,14 @@ export class EditEmployeeComponent implements AfterViewInit {
   displayedColumns: string[] = ['RoleName', 'isManagement', 'DateOfStartingWork', ' '];
   ELEMENT_DATA: RoleEmployee[] = [];
   dataSource = new MatTableDataSource<RoleEmployee>(this.ELEMENT_DATA);
-  public DicNameRole: { id: number, name: string }[] = [];//מילון לפי שם תפקיד וקוד
-  public listEmployeeRole: FormGroup[] = [];
-  public saveEmployeeRole: FormGroup[] = [];
-  public employeeRole!: FormGroup;
-  public formEmployee!: FormGroup;
-  public employee!: Employee;
-  public employeeId!: number;
+  DicNameRole: { id: number, name: string }[] = [];//מילון לפי שם תפקיד וקוד
+  listEmployeeRole: FormGroup[] = [];
+  saveEmployeeRole: FormGroup[] = [];
+  employeeRole!: FormGroup;
+  formEmployee!: FormGroup;
+  employee!: Employee;
+  employeeId!: number;
+
   constructor(private _employeeService: EmployeeService,
     private _roleEmployeeService: RoleEmployeeService,
     private _roleService: RoleService,
@@ -115,6 +116,7 @@ export class EditEmployeeComponent implements AfterViewInit {
           console.log("error", res)
         }
       });
+
       this._roleEmployeeService.getRolesById(this.employeeId).subscribe({
         next: (resf) => {
           this.ELEMENT_DATA = resf;
@@ -138,8 +140,6 @@ export class EditEmployeeComponent implements AfterViewInit {
           }
 
           this.dataSource = new MatTableDataSource<RoleEmployee>(this.ELEMENT_DATA);
-
-          // Set the paginator after assigning the data to the dataSource
           this.dataSource.paginator = this.paginator;
         }
       })
@@ -153,10 +153,12 @@ export class EditEmployeeComponent implements AfterViewInit {
       "kind": new FormControl("", [Validators.required]),
     })
   }
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
+
   goodDate() {
     const startDateControl = this.employeeRole?.get('startDate');
 
@@ -171,6 +173,7 @@ export class EditEmployeeComponent implements AfterViewInit {
     }
     return null;
   }
+
   updateDate(event: MatDatepickerInputEvent<Date>) {
     if (event.value) {
       const selectedDate = event.value;
@@ -198,15 +201,10 @@ export class EditEmployeeComponent implements AfterViewInit {
   addRole() {
     this.dialog.open(AddRoleComponent, { data: { employeeId: this.employeeId } });
     this._roleEmployeeService.getRolesById(this.employeeId).subscribe({
-
       next: (resf) => {
-
         this.ELEMENT_DATA = resf;
-
         this.listEmployeeRole = [];
-
         this.saveEmployeeRole = [];
-
 
         for (let i = 0; i < resf.length; i++) {
           const formGroup = new FormGroup({
@@ -232,13 +230,12 @@ export class EditEmployeeComponent implements AfterViewInit {
         this.dataSource.sort = this.sort;
       }
     });
-
   }
 
-  
   cencel() {
     this.router.navigate(['../']);
   }
+
   edit() {
     console.log("listttttt", this.listEmployeeRole);
     console.log("saveeeeeeeeee", this.saveEmployeeRole);
@@ -263,6 +260,7 @@ export class EditEmployeeComponent implements AfterViewInit {
       }
     });
   }
+
   chooseRole(selectedRole: number, i: number) {
     if (this.DicNameRole.some(role => role.id === selectedRole)) {
       this.listEmployeeRole[i].get('roleId')?.setValue(selectedRole);
@@ -270,6 +268,7 @@ export class EditEmployeeComponent implements AfterViewInit {
       console.log("Selected role id does not exist in DicNameRole");
     }
   }
+  
   editRole(role: RoleEmployee) {
     this.dialog.open(EditRoleComponent, { data: { employeeId: this.employeeId, roleId: role.roleId } });
   }

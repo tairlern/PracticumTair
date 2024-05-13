@@ -9,15 +9,18 @@ import { Observable, map } from 'rxjs';
 export class RoleService {
 
   constructor(private http: HttpClient) { }
+
   getRoleTableServer(): Observable<Role[]> {
     return this.http.get<Role[]>('https://localhost:7223/api/Role')
   }
+  
   getRoleByNameServer(selectedRole: string): Observable<Role> {
    return this.http.get<Role[]>('https://localhost:7223/api/Role')
       .pipe(
         map((roles: Role[]) => roles.find(rol => rol.name == selectedRole)!)
       );
   }
+
   getListRoleName():Observable<{[key: number]: string}> {
     return this.http.get<Role[]>('https://localhost:7223/api/Role')
       .pipe(
@@ -29,4 +32,5 @@ export class RoleService {
         })
       );
   }
+  
 }

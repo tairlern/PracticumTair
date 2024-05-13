@@ -1,6 +1,7 @@
 .buttons{
     display: flex;
-    flex-direction: row;   
+    flex-direction: row;
+    
 }
 .cancel{
     width: 30px;
@@ -22,5 +23,5 @@
    margin: auto;
 }
 .ok{
-    background-color: rgb(77, 71, 71);
+    background-color: rgb(194, 189, 189);
 }

@@ -30,10 +30,11 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './add-employee.component.css'
 })
 export class AddEmployeeComponent implements OnInit {
-  public addForm!: FormGroup;
-  public isAddRole: boolean = false
-  public employeeId!: number
-  public save = false;
+   addForm!: FormGroup;
+   isAddRole: boolean = false
+   employeeId!: number
+   save = false;
+   
   constructor(private _employeeService: EmployeeService,
     private router: Router,
     public dialog: MatDialog) { }
@@ -109,12 +110,9 @@ export class AddEmployeeComponent implements OnInit {
       })
     }
   }
-
   cencel() {
     this.router.navigate(['../']);
   }
-
-
 
   add() {
     this.save = true

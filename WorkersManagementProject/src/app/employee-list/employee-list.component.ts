@@ -9,11 +9,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 import { Employee } from '../models/Employee.model';
 import { AddEmployeeComponent } from '../add-employee/add-employee.component';
 import { EmployeeService } from '../service/employee.service';
-import {MatToolbarModule} from '@angular/material/toolbar';
-
 
 @Component({
   selector: 'app-employee-list',
@@ -22,6 +22,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css'
 })
+
 export class EmployeeListComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -39,8 +40,6 @@ export class EmployeeListComponent implements AfterViewInit {
       next: (res) => {
         this.ELEMENT_DATA = res;
         this.dataSource = new MatTableDataSource<Employee>(this.ELEMENT_DATA);
-
-        // Set the paginator after assigning the data to the dataSource
         this.dataSource.paginator = this.paginator;
       },
       error: (err) => {
@@ -58,7 +57,6 @@ export class EmployeeListComponent implements AfterViewInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -69,7 +67,6 @@ export class EmployeeListComponent implements AfterViewInit {
   }
 
   editRow(emp: Employee) {
-
     this.router.navigate(['edit-employee'], { queryParams: { numEmp: emp.id } })
   }
 

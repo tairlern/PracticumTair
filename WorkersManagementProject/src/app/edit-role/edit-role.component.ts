@@ -18,6 +18,8 @@ import { RoleEmployeeService } from '../service/role-employee.service';
 import { Employee } from '../models/Employee.model';
 import { EmployeeService } from '../service/employee.service';
 import { RoleEmployee } from '../models/RoleEmployee.model';
+
+
 @Component({
   selector: 'app-edit-role',
   standalone: true,
@@ -34,15 +36,16 @@ import { RoleEmployee } from '../models/RoleEmployee.model';
   styleUrl: './edit-role.component.css'
 })
 export class EditRoleComponent implements OnInit {
-  listRole: Role[] = [];
-  listNameRole: String[] = [];
+  FormRoleEmp!: FormGroup;
+  role!: Role;
   roleEmploye!: RoleEmployee;
-  public FormRoleEmp!: FormGroup;
-  public role!: Role;
-  public employee!: Employee
+  employee!: Employee;
+  listRole: Role[] = [];
+  listChoose: String[] = [];
+  listNameRole: String[] = [];
+  listRoleEmployee: number[] = [];
 
   constructor(private _roleService: RoleService, private _employeeService: EmployeeService, private _roleEmployeeService: RoleEmployeeService, @Inject(MAT_DIALOG_DATA) public data: { employeeId: number, roleId: number }, private dialog: Dialog) {
-   console.log("constractor",data.roleId)
     this.FormRoleEmp = new FormGroup({
       "employeeId": new FormControl(data.employeeId),
       "roleId": new FormControl(data.roleId, [Validators.required]),
@@ -52,14 +55,31 @@ export class EditRoleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._roleEmployeeService.getRolesById(this.data.employeeId).subscribe({
+      next: (res) => {
+        this.listRoleEmployee = res.map(l => l.roleId);
+      }
+    })
+
     this._roleService.getRoleTableServer().subscribe({
       next: (res) => {
         this.listRole = res;
         this.listNameRole = this.listRole.map(role => role.name);
-        this._employeeService.getEmployeeById(this.data.employeeId).subscribe({ next: (res) => { this.employee = res } })
+
+        this._employeeService.getEmployeeById(this.data.employeeId).subscribe({
+          next: (res) => {
+            this.employee = res
+            this.listChoose = this.listRole
+              .filter(role => !this.listRoleEmployee.includes(role.id))
+              .map(role => role.name);
+            console.log(this.listChoose, "listChose");
+            console.log(this.listNameRole, "listname")
+          }
+        })
       },
       error: (err) => { console.log(err) }
     });
+
     this._roleEmployeeService.getRoleEmployee(this.data.employeeId, this.data.roleId).subscribe({
       next: (res) => {
         this.roleEmploye = res;
@@ -74,9 +94,9 @@ export class EditRoleComponent implements OnInit {
       error: (err) => { console.log(err) }
     });
   }
+
   goodDate() {
     const startDateControl = this.FormRoleEmp?.get('startDate');
-
     if (startDateControl && this.employee && this.employee.startWork) {
       const startDate = startDateControl.value;
       const employeeStartWorkDate = new Date(this.employee.startWork);
@@ -110,7 +130,8 @@ export class EditRoleComponent implements OnInit {
         this.role = res;
         console.log(this.role, "role in next this position return")
         if (this.role && this.role.id) {
-          this.FormRoleEmp.get('roleId')?.setValue(this.role.id);
+          this.FormRoleEmp.get('nameRole')?.setValue(selectedRole);
+          this.FormRoleEmp.get('roleId')?.setValue(this.role.id); 
         } else {
           console.log("Role or Role id is undefined");
         }
@@ -122,17 +143,14 @@ export class EditRoleComponent implements OnInit {
   }
 
   Add() {
-    console.log("post role", this.FormRoleEmp.value)
-
-    this._roleEmployeeService.putEmmployeeRole(this.data.employeeId,this.data.roleId,this.FormRoleEmp.value).subscribe({
-      next:()=>{
+    this._roleEmployeeService.putEmmployeeRole(this.data.employeeId, this.data.roleId, this.FormRoleEmp.value).subscribe({
+      next: () => {
         location.reload();
       },
       error: (err) => {
         console.log(err)
       }
     });
-
     this.dialog.closeAll();
   }
 }

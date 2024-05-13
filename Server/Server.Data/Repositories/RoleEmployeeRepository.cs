@@ -27,8 +27,15 @@ namespace Server.Data.Repositories
         }
         public async Task<RoleEmployee> AddAsync(RoleEmployee remployee)
         {
-            _context.RoleEmployees.Add(remployee);
-            await _context.SaveChangesAsync();
+            if (_context.RoleEmployees.Contains(remployee))
+            {
+                remployee.Status = true;
+            }
+            else
+            {
+                _context.RoleEmployees.Add(remployee);
+                await _context.SaveChangesAsync();
+            }
             return remployee;
         }
        
@@ -39,10 +46,17 @@ namespace Server.Data.Repositories
             //existrEmployee.IsManagement= roleemployee.IsManagement;
             //existrEmployee.StartDate = roleemployee.StartDate;
             _context.Remove(existrEmployee);
-            _context.Add(roleemployee);
-           //_context.Entry(existrEmployee).CurrentValues.SetValues(roleemployee);
-            await _context.SaveChangesAsync();
-            return existrEmployee;
+            if (_context.RoleEmployees.Contains(roleemployee))
+            {
+                roleemployee.Status = true;
+            }
+            else
+            {
+                _context.Add(roleemployee);
+                //_context.Entry(existrEmployee).CurrentValues.SetValues(roleemployee);
+                await _context.SaveChangesAsync();
+            }
+            return roleemployee;
         }
         public async Task DeleteAsync(int ide,int idr)
         {

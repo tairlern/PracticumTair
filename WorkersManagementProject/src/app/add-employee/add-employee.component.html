@@ -2,8 +2,6 @@
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon"  (click)="cencel()">
         <mat-icon style="color: red;">cancel</mat-icon>
       </button>
-    <!-- <button mat-button (click)="cencel()" class="cancel"> <mat-icon
-            style="width:200px; height: 30px; color: red;">cancel</mat-icon> </button> -->
     <mat-card-header>
         <mat-card-title>Add Employee</mat-card-title>
     </mat-card-header>
@@ -87,11 +85,11 @@
 
             </div>
         </form>
-        <button mat-button (click)="addRole()" [disabled]="!this.addForm.valid">Add Role</button>
+        <button mat-button (click)="addRole()" [disabled]="!this.addForm.valid" class="ok">Add Role</button>
 
     </mat-card-content>
 
     <mat-card-actions class="buttons">
-        <button mat-button (click)="add()" [disabled]="!this.addForm.valid">Add</button>
+        <button mat-button (click)="add()" [disabled]="!this.addForm.valid" class="ok">Add</button>
     </mat-card-actions>
 </mat-card>

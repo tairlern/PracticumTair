@@ -39,6 +39,7 @@ namespace Server.Service
         }
         public async Task<RoleEmployee> AddAsync(RoleEmployee roleEmployee)
         {
+            
             if (roleEmployee != null && roleEmployee.StartDate >= DateTime.Today)
             {
                 await _roleEmployeeRepository.AddAsync(roleEmployee);

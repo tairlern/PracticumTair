@@ -2,6 +2,7 @@
 <mat-dialog-content>
     <mat-card-content>
         <form [formGroup]="FormRoleEmp" id="form">
+
             <div>
                 <mat-form-field>
                     <mat-label>Name Role</mat-label>
@@ -13,6 +14,7 @@
                     <mat-error>Name Role is required and no roles are available!</mat-error>
                 </ng-container>
             </div>
+
             <div>
                 <section class="example-section">
                     <label class="example-margin"> Choose: </label>
@@ -20,6 +22,7 @@
                 </section>
                 
             </div>
+
             <div>
                 <mat-form-field>
                     <mat-label>DateOfStartingWork</mat-label>
@@ -32,10 +35,11 @@
                     <mat-error *ngIf="this.FormRoleEmp.get('startDate')?.hasError('invalidDate')">The date must be equal to or after the job start date!</mat-error>
                 </ng-container>
             </div>
+            
         </form>
     </mat-card-content>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-button (click)="Add()" [disabled]="!this.FormRoleEmp.valid">Add Role</button>
+    <button mat-button (click)="Add()" [disabled]="!this.FormRoleEmp.valid" class="ok">Add Role</button>
     <button mat-button mat-dialog-close >Cancel</button>
 </mat-dialog-actions>
